@@ -1,0 +1,117 @@
+﻿@model FIT5032_Assignment_New.Models.Location
+
+@{
+    ViewBag.Title = "Create Event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-md-12" id="map" style="height:300px"></div>
+        <div class="form-horizontal col-md-12">
+            <h4>Please pick a location from map</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.LocationName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LocationName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", @id = "lat" } })
+                    @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control", @id = "lng" } })
+                    @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })*@
+                    <div class="container">
+                        <div>
+                            <div class="form-group">
+                                <div class='date'>
+                                    @*<input type='text' class="form-control" />*@
+                                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @id = "datetimepicker7" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        //$(document).ready(function () {
+                            $('#datetimepicker7').datetimepicker({
+                                format: "HH:mm:ss DD/MM/YYYY",
+                                useCurrent: true //Important! See issue #1075
+                            })
+                      //  })
+                        
+
+                    </script>
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+
+    @*<div id="invitees">
+            <div class="form-group" id="invi">
+                @Html.LabelFor(, htmlAttributes: new { @class = "control-label col-md-2" })
+                <input name="selectedInvitees" />
+                <div class="col-md-10">
+                   @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                   @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+               </div>
+            </div>
+        </div>*@
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+    @*<script>
+            function createNew() {
+                var newdiv = document.createElement("div");
+                newdiv.innerHTML = "we";
+                newdiv.id = "form-group";
+                //newdiv.id = "child_div";
+                document.getElementById("invitees").appendChild(newdiv);
+            }
+        </script>*@
+
+    @*<button onclick="createNew()">Create New</button>*@
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/mapbox")
+        @Scripts.Render("~/bundles/jquery")
+    }

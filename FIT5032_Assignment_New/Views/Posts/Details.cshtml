@@ -1,0 +1,100 @@
+﻿@model FIT5032_Assignment_New.Models.Post
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" style="background: url('/Pictures/23.jpg') no-repeat center center;">
+    <div class="container"><h2 class="header">Detail</h2></div>
+</div>
+<div class="container">
+
+    @*<div>
+            <h4>Post</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PostDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PostDate)
+                </dd>
+
+                <dt>
+                    Author
+                </dt>
+
+                <dd>
+                    @Html.Action("GetUserName", new { userId = Model.AuthorId })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+
+                </dd>
+
+            </dl>
+        </div>
+
+        @if (Model.AuthorId == User.Identity.GetUserId())
+        {<p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            </p>
+        }
+
+            <p>@Html.ActionLink("Back to List", "Index")</p>*@
+
+    <div class="row">
+        <div class=" col-xs-12" style="font-size:30px; font-weight:bold; text-align:center;">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-3 text-center">
+            @Html.DisplayFor(model => model.PostDate)
+        </div>
+
+        <div class="col-sm-3 text-center">
+            @Html.Action("GetUserName", new { userId = Model.AuthorId })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" style=" padding: 20px; margin-top: 10px; background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
+            <p>
+                @*@Html.DisplayFor(model => model.Content)*@
+                @Html.Raw(Model.Content.Replace("\r\n", "<br />"))
+            </p>
+        </div>
+
+        <br />
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @if (Model.AuthorId == User.Identity.GetUserId())
+            {
+                @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
+                <button type="button" class="btn btn-default" onclick="window.location.href='@Url.Action("Edit", "Posts", new { id = Model.ID })'" style="margin-bottom: 10px;">Edit</button>
+            }
+
+            @*@Html.ActionLink("Back to List", "Index")*@
+            <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Posts")'" style="margin-bottom: 10px;">Back to List</button>
+        </div>
+    </div>
+    </div>

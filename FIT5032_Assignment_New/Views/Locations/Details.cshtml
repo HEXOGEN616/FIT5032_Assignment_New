@@ -1,0 +1,140 @@
+﻿@model FIT5032_Assignment_New.Models.Location
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <h2>Details</h2>
+    <div id="map" style="height:300px"></div>
+    <div>
+        <h4>Location</h4>
+        <hr />
+        <dl class="dl-horizontal coordinates">
+            <dt>
+                @Html.DisplayNameFor(model => model.LocationName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LocationName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd class="description">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </dt>
+
+            <dd class="latitude">
+                @Html.DisplayFor(model => model.Latitude)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </dt>
+
+            <dd class="longitude">
+                @Html.DisplayFor(model => model.Longitude)
+            </dd>
+
+            <dt class="date">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.InviterId)*@
+                Initiator
+            </dt>
+
+            <dd>
+                @Html.Action("GetUserName", new { userId = Model.InviterId })
+            </dd>
+
+        </dl>
+    </div>
+
+
+    <div class="container">
+        <h4 id="box" style="cursor:pointer;">Invitee List <span id="toggle">+</span></h4>
+        @{int a = 0;}
+        @foreach (FIT5032_Assignment_New.Models.Invitee item in ViewBag.Invitees)
+        {
+            a += 1;
+            <div class="col-sm-4 text-center hidde" style=" padding: 10px; display:none">
+                <div class="col-xs-12" style="background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); padding:0; margin: 0">
+                    <div class="col-xs-12" style="padding-top:10px; padding-bottom:10px; word-wrap: break-word;">@Html.DisplayFor(modelItem => item.Email)</div>
+
+                    <div class="col-xs-12 status" style=" padding-top:10px; padding-bottom:10px; font-family: TitilliumWeb-Regular; font-size: 20px">@Html.DisplayFor(modelItem => item.Status)</div>
+
+                </div>
+            </div>
+            if (a % 3 == 0)
+            {
+                <div class="clearfix"></div>
+            }
+
+            @*@Html.DisplayFor(modelItem => item)*@
+            @*@Html.DisplayFor(modelItem => item.Email)*@
+            @*@Html.DisplayFor(item.Email)*@
+
+        }
+
+        <script>
+
+            $(".status").each(
+                function (i) {
+                    if ($(this).text() === "Pending") {
+                        $(this).css("background-color", "#f0ad4e");
+                    }
+                    else if ($(this).text() === "Declined") {
+                        $(this).css("background-color", "#d9534f");
+                    }
+                    else if ($(this).text() === "Accepted") {
+                        $(this).css("background-color", "#5cb85c");
+                    }
+                });
+
+            //$(function () {
+            $("#box").click(function () {
+                $(function () {
+                    var hidden = $(".hidde").css("display");
+                    if (hidden === "none") {
+                        $("#toggle").html("-");
+                    }
+                    else {
+                        $("#toggle").html("+");
+                    }
+                });
+                $(".hidde").toggle("fast");
+
+                //   })
+
+            })
+
+
+
+        </script>
+    </div>
+
+    @*@Html.ActionLink("Invite someone!", "Create", "Invitees", new { invitationId = Model.Id }, null)*@
+    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Create", "Invitees", new { invitationId = Model.Id })'">Invite someone!</button>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/mapbox")
+    }

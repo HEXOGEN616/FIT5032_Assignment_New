@@ -1,0 +1,75 @@
+﻿@model FIT5032_Assignment_New.Models.Invitee
+
+@{
+    ViewBag.Title = "Event Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2>Event Details</h2>
+    <div id="map" style="height:300px"></div>
+    <div>
+        <h4>Details</h4>
+        <hr />
+        <dl class="dl-horizontal coordinates">
+            <dt>
+                @Html.DisplayNameFor(model => model.Location.LocationName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Location.LocationName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Location.Description)
+            </dt>
+
+            <dd class="description">
+                @Html.DisplayFor(model => model.Location.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Location.Latitude)
+            </dt>
+
+            <dd class="latitude">
+                @Html.DisplayFor(model => model.Location.Latitude)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Location.Longitude)
+            </dt>
+
+            <dd class="longitude">
+                @Html.DisplayFor(model => model.Location.Longitude)
+            </dd>
+
+            <dt>
+                Initiator
+            </dt>
+
+            <dd>
+                @*@Html.DisplayFor(model => model.Email)*@
+                @Html.Action("GetUserName", new { userId = Model.Location.InviterId })
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Status)*@
+                My Status
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt>@Html.DisplayNameFor(model => model.Location.Date)</dt>
+            <dd class="date">@Html.DisplayFor(model => model.Location.Date)</dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("RSVP", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/mapbox")
+    }

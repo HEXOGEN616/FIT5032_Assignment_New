@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container">
+    <div class="jumbotron" style="background: url(/Pictures/background.jpg) center center no-repeat;background-size: cover;">
+        <div class="row">
+            <div class="col-md-12" style="background-color: rgba(255, 255, 255, 0.733); padding: 20px;">
+                <h1 class="websiteName">There Is No Vegetarian</h1>
+                <p class="lead">A website for meat lovers.</p>
+                <p><a href=@Url.Action("Index", "Posts") class="btn btn-primary btn-lg">See all posts &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Staying In?</h2>
+            <p>
+                See our selected recipes!
+            </p>
+            <p><a class="btn btn-default" href="@Url.Action("Index", "Posts")">Sure! &raquo;</a></p>
+        </div>
+        <div class="col-md-6">
+            <h2>Going out?</h2>
+            <p>Set an event!</p>
+            <p><a class="btn btn-default" href="@Url.Action("Index", "Locations")">Cool! &raquo;</a></p>
+        </div>
+        @*<div class="col-md-4">
+                <h2>Web Hosting</h2>
+                <p>
+                    You can easily find a web hosting company that offers the right mix of features and price for your applications.
+                    </p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>*@
+    </div>
+</div>

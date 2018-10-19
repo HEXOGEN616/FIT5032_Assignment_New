@@ -1,0 +1,161 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+}
+
+
+
+    <!-- Header -->
+    <a name="about"></a>
+    <div class="intro-header">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1 class="websiteName">Tinv</h1>
+                        <h3>This is a site for</h3>
+                        <h3 id="test1">Meat Lovers</h3>
+                        <script>
+//The line below means it will execute the code inside the function() when the page is fully loaded
+function test() {
+    x=document.getElementById("test1");
+    if (x.innerHTML == "Meat Lovers")
+        x.innerHTML = "Foodies";
+    else if (x.innerHTML == "Foodies")
+        x.innerHTML = "Pretended Vegetarians";
+    else if (x.innerHTML == "Pretended Vegetarians")
+        x.innerHTML = "Party People";
+    else
+        x.innerHTML = "Meat Lovers";
+//This line of code firstly find the element (In this case it is a div element) through the id called “test1”, and then replace the content to “This is a replaced message”.
+};
+                        </script>
+                        <script>
+        var MyVar = window.setInterval(function(){test()},1500);
+                        </script>
+                        <hr class="intro-divider">
+                        <ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a href="@Url.Action("Index", "Posts")" class="btn btn-default btn-lg" style="width: 120px"><span class="network-name">Recipes</span></a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Locations")" class="btn btn-default btn-lg" style="width: 120px"><span class="network-name">Events</span></a>
+                            </li>
+                            <li>
+                                <a href="#contact" class="btn btn-default btn-lg" style="width: 120px"><span class="network-name">Contect</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.intro-header -->
+    <!-- Page Content -->
+
+    <a name="services"></a>
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Staying in?</h2>
+                    <p class="lead">See our @Html.ActionLink("Selected Recipes", "Index", "Posts") and be an awesome chef!</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="~/Pictures/recipe.jpg" alt="Recipes">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Going out?</h2>
+                    <p class="lead">Set an @Html.ActionLink("Event", "Index", "Locations") and invite your friends to it!</p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="~/Pictures/event.jpg" alt="Events">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-b -->
+
+    @*<div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Google Web Fonts and<br>Font Awesome Icons</h2>
+                    <p class="lead">This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="img/phones.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>*@
+    <!-- /.content-section-a -->
+
+    <a name="contact"></a>
+    <div class="banner">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Connect to <span class="websiteName">Tinv</span>:</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="nailto:kmen0004@student.monash.edu" class="btn btn-default btn-lg" style="width: 150px;"><i class="fa fa-envelope"></i> <span class="network-name">Email</span></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/sprintal" target="_blank" class="btn btn-default btn-lg" style="width: 150px;">
+                                <i class="fa fa-github"></i> <span class="network-name">Github</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-default btn-lg"  style="width: 150px;"><span class="network-name">Go back top</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+    
+    
+
+    
