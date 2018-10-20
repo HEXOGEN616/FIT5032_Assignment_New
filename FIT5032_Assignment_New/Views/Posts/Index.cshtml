@@ -9,27 +9,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="jumbotron" style="background: url('../Pictures/23.jpg') no-repeat center center;">
-        <div class="container"><h2 class="header">Recipes</h2></div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4" style="margin-bottom:10px">
-                @*@Html.ActionLink("Create New", "Create")*@
-                <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Create", "Posts")'">Create New Post</button>
-            </div>
-
-            <div class="col-sm-8 form-group">
-                @using (Html.BeginForm("Index", "Posts", FormMethod.Get))
-                {
-                    @*Date: @Html.DropDownList("poster", "All")*@
-                    <div class="col-xs-6 col-sm-8">@Html.TextBox("searchString", null, new { @class = " form-control", @type = "text", @placeholder = "Title", @style = "max-width: 1000px" })</div>
-                    <div class="col-xs-3 col-sm-2"><button type="reset" onclick="window.location.href='@Url.Action("Index", "Posts")'" class="btn btn-default btn-block">Clear</button></div>
-                    <div class="col-xs-3 col-sm-2"><button type="submit" value="Search" class="btn btn-default btn-block">Search</button></div>
-                }
-            </div>
+<div class="jumbotron" style="background: url('../Pictures/23.jpg') no-repeat center center;">
+    <div class="container"><h2 class="header">Recipes</h2></div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" style="margin-bottom:10px">
+            @*@Html.ActionLink("Create New", "Create")*@
+            <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Create", "Posts")'">Create New Post</button>
         </div>
-        @*<script>
+
+        <div class="col-sm-8 form-group">
+            @using (Html.BeginForm("Index", "Posts", FormMethod.Get))
+            {
+                @*Date: @Html.DropDownList("poster", "All")*@
+                <div class="col-xs-6 col-sm-8">@Html.TextBox("searchString", null, new { @class = " form-control", @type = "text", @placeholder = "Title", @style = "max-width: 1000px" })</div>
+                <div class="col-xs-3 col-sm-2"><button type="reset" onclick="window.location.href='@Url.Action("Index", "Posts")'" class="btn btn-default btn-block">Clear</button></div>
+                <div class="col-xs-3 col-sm-2"><button type="submit" value="Search" class="btn btn-default btn-block">Search</button></div>
+            }
+        </div>
+    </div>
+    @*<script>
             $(document).ready(function () {
                 $(function () {
                     $('input:reset').click(function () {
@@ -38,8 +38,8 @@
                 });
             });
         </script>*@
-        <br />
-        @*<table class="table">
+    <br />
+    @*<table class="table">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
@@ -87,113 +87,164 @@
             }
 
         </table>*@
-        <div class="row text-center">
-            <div class="col-xs-3">
-                @Html.DisplayNameFor(model => model.Title)
-            </div>
+    <div class="row text-center">
+        <div class="col-xs-3">
+            @Html.DisplayNameFor(model => model.Title)
+        </div>
 
-            <div class="col-xs-3">
-                @Html.DisplayNameFor(model => model.PostDate)
-            </div>
+        <div class="col-xs-3">
+            @Html.DisplayNameFor(model => model.PostDate)
+        </div>
 
-            <div class="col-xs-3">
-                Author
-            </div>
+        <div class="col-xs-3">
+            Author
+        </div>
 
 
-            @*<div class="col-xs-3">
+        @*<div class="col-xs-3">
                 @Html.DisplayNameFor(model => model.Content)
             </div>*@
 
-            <div class="col-xs-3">
-                options
-            </div>
+        <div class="col-xs-3">
+            options
         </div>
+    </div>
 
-        @foreach (var item in Model)
-        {
-            <div class="row text-center item" style="background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); margin-top:10px; margin-bottom:10px;">
-                <div class="col-xs-9" onclick="window.location.href='@Url.Action("Details", "Posts", new { id= item.ID })'" style="cursor: pointer; margin: 0; padding-top:10px; padding-bottom:10px; ">
-                    <div class="col-xs-4" style="margin-top: 10px; margin-bottom: 10px">
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row text-center item" style="background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); margin-top:10px; margin-bottom:10px;">
+            <div class="col-xs-9" onclick="window.location.href='@Url.Action("Details", "Posts", new { id= item.ID })'" style="cursor: pointer; margin: 0; padding-top:10px; padding-bottom:10px; ">
+                <div class="col-xs-4" style="margin-top: 10px; margin-bottom: 10px">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </div>
 
-                    <div class="col-xs-4" style="margin-top: 10px; margin-bottom: 10px">
-                        @Html.DisplayFor(modelItem => item.PostDate)
-                    </div>
+                <div class="col-xs-4" style="margin-top: 10px; margin-bottom: 10px">
+                    @Html.DisplayFor(modelItem => item.PostDate)
+                </div>
 
-                    <div class="col-xs-4" style="word-break: break-all; word-wrap: break-word;margin-top: 10px; margin-bottom: 10px">
-                        @Html.Action("GetUserName", new { userId = item.AuthorId })
-                    </div>
+                <div class="col-xs-4" style="word-break: break-all; word-wrap: break-word;margin-top: 10px; margin-bottom: 10px">
+                    @Html.Action("GetUserName", new { userId = item.AuthorId })
+                </div>
 
-                    @*<div class="col-xs-3">
+                @*<div class="col-xs-3">
                         @Html.DisplayFor(modelItem => item.Content)
                     </div>*@
+            </div>
+            <div class="col-md-3 hidden-xs hidden-sm" style="margin-top: 10px; ">
+                <div class="col-md-4" style="padding-left:5px; padding-right:5px">
+                    @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                    <button type="button" class="btn btn-default btn-block" onclick="window.location.href='@Url.Action("Details", "Posts", new { id= item.ID })'">Details</button>
                 </div>
-                <div class="col-md-3 hidden-xs hidden-sm" style="margin-top: 10px; ">
-                    <div class="col-md-4" style="padding-left:5px; padding-right:5px">
-                        @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
-                        <button type="button" class="btn btn-default btn-block" onclick="window.location.href='@Url.Action("Details", "Posts", new { id= item.ID })'">Details</button>
-                    </div>
 
 
 
-                    @if (item.AuthorId == User.Identity.GetUserId())
-                    {
-                        
+                @if (item.AuthorId == User.Identity.GetUserId())
+                {
+
                     <div class="col-md-4" style="padding-left:5px; padding-right:5px">
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
                         <div class="id" style="display: none">@item.ID</div>
                         <button type="button" class="btn btn-default btn-block" onclick="window.location.href='@Url.Action("Edit", "Posts", new { id= item.ID })'">Edit</button>
                     </div>
 
-                        <div class="col-md-4" style="padding-left:5px; padding-right:5px">
-                            @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-                            <button type="button" class="btn btn-danger btn-block" onclick="window.location.href='@Url.Action("Delete", "Posts", new { id= item.ID })'">Delete</button>
-                            
-                        </div>
-                        <br />
+                    <div class="col-md-4" style="padding-left:5px; padding-right:5px">
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                        <button type="button" class="btn btn-danger btn-block" onclick="window.location.href='@Url.Action("Delete", "Posts", new { id= item.ID })'">Delete</button>
 
-                    }
-
-                    <script>
-                        $(document).ready(function () {
-                            $(".item").hover(function () {
-                                $(this).css("background-color", "lightskyblue");
-                            }, function () {
-                                $(this).css("background-color", "#fff");
-                            });
-                        })
-
-                    </script>
-
-
-                    
-                    @*else
-        {
-            <div class="row">
-
-            </div>
-
-            <div class="row">
-
-            </div>
-        }*@
-                </div>
-
-                <div class="col-xs-3 visible-xs visible-sm text-center" style="margin-top: 10px; margin-bottom: 10px">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options<span class="caret"></span></button>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="@Url.Action("Details", "Posts", new { id= item.ID })">Details</a></li>
-                            @if (item.AuthorId == User.Identity.GetUserId())
-                            {
-                                <li><a href="@Url.Action("Edit", "Posts", new { id = item.ID })">Edit</a></li>
-                                <li style="background-color:#D9534F"><a href="@Url.Action("Delete", "Posts", new { id = item.ID })">Delete</a></li>
-                            }
-                        </ul>
                     </div>
+                    <br />
+
+                }
+
+                <script>
+                    $(document).ready(function () {
+                        $(".item").hover(function () {
+                            $(this).css("background-color", "lightskyblue");
+                        }, function () {
+                            $(this).css("background-color", "#fff");
+                        });
+                    })
+
+                </script>
+
+
+
+                @*else
+                    {
+                        <div class="row">
+
+                        </div>
+
+                        <div class="row">
+
+                        </div>
+                    }*@
+            </div>
+
+            <div class="col-xs-3 visible-xs visible-sm text-center" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options<span class="caret"></span></button>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="@Url.Action("Details", "Posts", new { id= item.ID })">Details</a></li>
+                        @if (item.AuthorId == User.Identity.GetUserId())
+                        {
+                            <li><a href="@Url.Action("Edit", "Posts", new { id = item.ID })">Edit</a></li>
+                            <li style="background-color:#D9534F"><a href="@Url.Action("Delete", "Posts", new { id = item.ID })">Delete</a></li>
+                        }
+                    </ul>
                 </div>
             </div>
+        </div>
+    }
+</div>
+
+
+@*<div id="app-4">
+
+    <ol>
+        <li v-for="todo in todos">
+            {{ todo.text }}
+        </li>
+    </ol>
+
+
+
+</div>
+<div id="app-5">
+    <input v-model="message" v-bind:class="{'text-danger':hasError}"><span>{{worning}}</span>
+    <br>
+    <button v-on:click="reverseMessage">Enter</button>
+</div>
+
+<script>
+    var app4 = new Vue({
+        el: '#app-4',
+        data: {
+            todos: [
+                { text: '学习 JavaScript' },
+                { text: '学习 Vue' },
+                { text: '整个牛项目' }
+            ]
         }
-    </div>
+    })
+</script>
+
+    @foreach (var item in Model)
+    {
+<script>
+        
+
+            function display() {
+                
+                    app4.todos.push({ text: '@item.Title' })
+
+                
+
+
+            }
+        
+    </script>
+    }*@eng
+    
+
+
