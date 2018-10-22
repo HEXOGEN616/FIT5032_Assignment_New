@@ -83,6 +83,12 @@ map.on('click', 'places', function (e) {
         .addTo(map);
 });
 
+$('.button').click(function (e) {
+    var lng = $(this).parent().parent().children(".longitude").html();
+    var lat = $(this).parent().parent().children(".latitude").html();
+    map.flyTo({ center: [lng, lat] });
+    })
+
 map.on("click", function (e) {
    // document.getElementById('info').innerHTML =
 

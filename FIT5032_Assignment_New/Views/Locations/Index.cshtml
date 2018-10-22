@@ -43,8 +43,10 @@
 
             @foreach (var item in Model)
             {
+                
                 <tr class="coordinates">
                     <td>
+                        <span class="btn btn-default button"><i class="fa fa-location-arrow"></i></span>
                         @Html.DisplayFor(modelItem => item.LocationName)
                     </td>
                     <td class="description">
