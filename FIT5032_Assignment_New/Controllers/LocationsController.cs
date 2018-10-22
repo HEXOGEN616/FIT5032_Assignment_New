@@ -53,8 +53,13 @@ namespace FIT5032_Assignment_New.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Invitees = null;
             IEnumerable<Invitee> invitees = db.Invitees.Where(s => s.InvitationId == id);
-            ViewBag.Invitees = invitees;
+            if (invitees.Count() != 0)
+            {
+                ViewBag.Invitees = invitees;
+            }
+            
             return View(location);
         }
 
@@ -103,6 +108,21 @@ namespace FIT5032_Assignment_New.Controllers
             if (string.IsNullOrEmpty(location.Date.ToString()))
             {
                 ModelState.AddModelError("Date", "Tell us when it is.");
+            }
+
+            if (string.IsNullOrEmpty(location.Latitude.ToString()))
+            {
+                ModelState.AddModelError("Latitude", "Tell us where it is.");
+            }
+
+            if (string.IsNullOrEmpty(location.Longitude.ToString()))
+            {
+                ModelState.AddModelError("Longitude", "Tell us where it is.");
+            }
+
+            if (DateTime.Compare(DateTime.Now, location.Date) > 0)
+            {
+                ModelState.AddModelError("Date", "You can't pick a date earlier than now.");
             }
 
             if (location.Latitude < -90 || location.Latitude > 90)
@@ -173,6 +193,21 @@ namespace FIT5032_Assignment_New.Controllers
                 ModelState.AddModelError("Date", "Tell us when it is.");
             }
 
+            if (string.IsNullOrEmpty(location.Latitude.ToString()))
+            {
+                ModelState.AddModelError("Latitude", "Tell us where it is.");
+            }
+
+            if (string.IsNullOrEmpty(location.Longitude.ToString()))
+            {
+                ModelState.AddModelError("Longitude", "Tell us where it is.");
+            }
+
+            if (DateTime.Compare(DateTime.Now, location.Date) > 0)
+            {
+                ModelState.AddModelError("Date", "You can't pick a date earlier than now.");
+            }
+
             if (location.Latitude < -90 || location.Latitude > 90)
             {
                 ModelState.AddModelError("Latitude", "Latitude should be in range of [-90,90]");
@@ -187,23 +222,29 @@ namespace FIT5032_Assignment_New.Controllers
                 db.SaveChanges();
                 string sender = GetUserName(location.InviterId);
                 string des = location.Description;
-                foreach(Invitee invitee in location.Invitees)
+                foreach (Invitee invitee in location.Invitees)
                 {
                     
-                    if (invitee.Status.Equals("Accepted"))
-                    {
+                   // if (invitee.Status.Equals("Accepted"))
+                   // {
                         try
                         {
                             String toEmail = invitee.Email;
                             String subject = "An event's detail has changed!";
                             String contents = sender + "has changed event " + des + "'s detail. Check the link below!";
-                            String link = Url.Action("Details", "Invitees", new { id = invitee.Id }, "http");
+                            String link = Url.Action("Details", "Invitees", new { id = invitee.Id }, "https");
 
                             EmailSender es = new EmailSender();
                             es.Send(toEmail, subject, contents, link);
                         }
-                        catch { }
-                    }
+                        catch {
+                            return RedirectToAction("Index", "Home");
+                        }
+                   // }
+                    //else
+                    //{
+                    //    return RedirectToAction("Index", "Home");
+                    //}
                     
                 }
                 

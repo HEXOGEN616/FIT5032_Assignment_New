@@ -26,10 +26,12 @@ namespace FIT5032_Assignment_New.Models
         public string Description { get; set; }
 
         //[Required]
+        [Display(Name = "Latitude")]
         [Column(TypeName = "numeric")]
         public decimal Latitude { get; set; }
 
-       // [Required]
+        // [Required]
+        [Display(Name = "Longitude")]
         [Column(TypeName = "numeric")]
         public decimal Longitude { get; set; }
 

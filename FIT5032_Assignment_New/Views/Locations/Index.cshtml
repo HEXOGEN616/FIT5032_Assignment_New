@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron" style="background: url('/Pictures/eventheader.jpg') no-repeat center center;">
+<div class="jumbotron" style="background: url('/Pictures/eventheader.jpg') no-repeat center center; background-size: cover;">
     <div class="container"><h2 class="header">My Events</h2></div>
 </div>
 
@@ -16,7 +16,7 @@
         
     <div class="col-md-12" id="map" style="height:300px"></div>
 
-    <div class="col-md-12" style="background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
+    <div class="col-md-12" style="background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); padding: 0;">
         <table class="table">
             <tr>
                 <th>
@@ -43,41 +43,41 @@
 
             @foreach (var item in Model)
             {
-                
-                <tr class="coordinates">
-                    <td>
-                        <span class="btn btn-default button"><i class="fa fa-location-arrow"></i></span>
-                        @Html.DisplayFor(modelItem => item.LocationName)
-                    </td>
-                    <td class="description">
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td class="latitude" style="display: none;">
-                        @Html.DisplayFor(modelItem => item.Latitude)
-                    </td>
-                    <td class="longitude" style="display: none;">
-                        @Html.DisplayFor(modelItem => item.Longitude)
-                    </td>
-                    <td class="date">
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td class="name" style="word-break: break-all; word-wrap: break-word;">
-                        @*@Html.DisplayFor(modelItem => item.InviterId)*@
-                        @Html.Action("GetUserName", new { userId = item.InviterId })
-                    </td>
-                    <td>
+                string background = DateTime.Compare(DateTime.Now, item.Date) < 0 ? "white" : "#ddd";
+        <tr class="coordinates" style="background-color: @background; margin: 10px; ">
+            <td style="word-break: break-all; word-wrap: break-word;">
+                <span class="btn btn-default button"><i class="fa fa-location-arrow"></i></span>
+                @Html.DisplayFor(modelItem => item.LocationName)
+            </td>
+            <td class="description" style="word-break: break-all; word-wrap: break-word;">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td class="latitude" style="display: none;">
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td class="longitude" style="display: none;">
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td class="date">
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td class="name" style="word-break: break-all; word-wrap: break-word;">
+                @*@Html.DisplayFor(modelItem => item.InviterId)*@
+                @Html.Action("GetUserName", new { userId = item.InviterId })
+            </td>
+            <td>
 
-                        @if (DateTime.Compare(item.Date, System.DateTime.Now) > 0)
-                        {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                            <span>|</span>
-                        }
+                @if (DateTime.Compare(item.Date, System.DateTime.Now) > 0)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            <span>|</span>
+}
 
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>
-                </tr>
-            }
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+}
 
 
         </table>
@@ -86,4 +86,8 @@
     @section Scripts {
         @Scripts.Render("~/bundles/mapbox")
     }
+
+<script>
+    $(".")
+</script>
 

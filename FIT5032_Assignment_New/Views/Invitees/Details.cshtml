@@ -4,11 +4,15 @@
     ViewBag.Title = "Event Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="jumbotron" style="background: url('/Pictures/eventheader.jpg') no-repeat center center; background-size: cover;">
+    <div class="container"><h2 class="header">Invitation Detail</h2></div>
+</div>
+
 <div class="container">
-    <h2>Event Details</h2>
     <div id="map" style="height:300px"></div>
     <div>
-        <h4>Details</h4>
+        <h4>Event Detail <span class="btn btn-default button1"><i class="fa fa-location-arrow"></i></span></h4>
         <hr />
         <dl class="dl-horizontal coordinates">
             <dt>
@@ -27,19 +31,19 @@
                 @Html.DisplayFor(model => model.Location.Description)
             </dd>
 
-            <dt>
+            <dt style="display: none">
                 @Html.DisplayNameFor(model => model.Location.Latitude)
             </dt>
 
-            <dd class="latitude">
+            <dd class="latitude" style="display: none">
                 @Html.DisplayFor(model => model.Location.Latitude)
             </dd>
 
-            <dt>
+            <dt style="display: none">
                 @Html.DisplayNameFor(model => model.Location.Longitude)
             </dt>
 
-            <dd class="longitude">
+            <dd class="longitude" style="display: none">
                 @Html.DisplayFor(model => model.Location.Longitude)
             </dd>
 
@@ -66,10 +70,22 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("RSVP", "Edit", new { id = Model.Id }) |
+        @if (DateTime.Compare(Model.Location.Date, DateTime.Now) > 0)
+    {
+        @Html.ActionLink("RSVP", "Edit", new { id = Model.Id })
+        <span>|</span>
+}
         @Html.ActionLink("Back to List", "Index")
     </p>
     </div>
     @section Scripts {
         @Scripts.Render("~/bundles/mapbox")
     }
+
+<script>
+                $(".button1").click(function (e) {
+                    var lng = $(".longitude").html();
+                    var lat = $(".latitude").html();
+                    map.flyTo({ center: [lng, lat] });
+                })
+</script>

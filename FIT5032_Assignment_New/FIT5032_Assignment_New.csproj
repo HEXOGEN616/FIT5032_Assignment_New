@@ -535,7 +535,6 @@
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
-    <Content Include="Views\Posts\Search.cshtml" />
     <Content Include="Views\Locations\Create.cshtml" />
     <Content Include="Views\Locations\Delete.cshtml" />
     <Content Include="Views\Locations\Details.cshtml" />
@@ -546,7 +545,6 @@
     <Content Include="Views\Invitees\Details.cshtml" />
     <Content Include="Views\Invitees\Edit.cshtml" />
     <Content Include="Views\Invitees\Index.cshtml" />
-    <Content Include="Views\Invitees\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
@@ -556,7 +554,6 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
-    <Content Include="Views\Posts\_DeleteConfirm.cshtml" />
     <Content Include="Views\Shared\Invite.cshtml" />
   </ItemGroup>
   <ItemGroup>

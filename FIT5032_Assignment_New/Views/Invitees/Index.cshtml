@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron" style="background: url('/Pictures/eventheader1.jpg') no-repeat center center;">
+<div class="jumbotron" style="background: url('/Pictures/eventheader1.jpg') no-repeat center center; background-size: cover;">
     <div class="container"><h2 class="header">Recievd Invitations</h2></div>
 </div>
 
@@ -26,7 +26,7 @@
                 @Html.DisplayNameFor(model => model.Location.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Initiator
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -44,7 +44,8 @@
                     @Html.DisplayFor(modelItem => item.Location.Date)
                 </td>
                 <td style="word-break: break-all; word-wrap: break-word;">
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @*@Html.DisplayFor(modelItem => item.Email)*@
+                    @Html.Action("GetUserName", new { userId = item.Location.InviterId })
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)

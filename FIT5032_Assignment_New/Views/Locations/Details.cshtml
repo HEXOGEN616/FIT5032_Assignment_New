@@ -5,12 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="jumbotron" style="background: url('/Pictures/eventheader.jpg') no-repeat center center; background-size: cover;">
+    <div class="container"><h2 class="header">Event Detail</h2></div>
+</div>
 
 <div class="container">
     <h2>Details</h2>
     <div id="map" style="height:300px"></div>
     <div>
-        <h4>Location</h4>
+        <h4>Location<span class="btn btn-default button1"><i class="fa fa-location-arrow"></i></span></h4>
         <hr />
         <dl class="dl-horizontal coordinates">
             <dt>
@@ -66,75 +69,107 @@
     </div>
 
 
-    <div class="container">
-        <h4 id="box" style="cursor:pointer;">Invitee List <span id="toggle">+</span></h4>
-        @{int a = 0;}
-        @foreach (FIT5032_Assignment_New.Models.Invitee item in ViewBag.Invitees)
-        {
-            a += 1;
-            <div class="col-sm-4 text-center hidde" style=" padding: 10px; display:none">
-                <div class="col-xs-12" style="background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); padding:0; margin: 0">
-                    <div class="col-xs-12" style="padding-top:10px; padding-bottom:10px; word-wrap: break-word;">@Html.DisplayFor(modelItem => item.Email)</div>
 
-                    <div class="col-xs-12 status" style=" padding-top:10px; padding-bottom:10px; font-family: TitilliumWeb-Regular; font-size: 20px">@Html.DisplayFor(modelItem => item.Status)</div>
+    @if (ViewBag.Invitees != null)
+    {
+        <div class="container">
+            <h4 id="box" style="cursor:pointer;">Invitee List <span id="toggle">+</span></h4>
+            @{int a = 0;}
 
-                </div>
-            </div>
-            if (a % 3 == 0)
+
+
+            @foreach (FIT5032_Assignment_New.Models.Invitee item in ViewBag.Invitees)
             {
-                <div class="clearfix"></div>
+                a += 1;
+                <div class="col-sm-4 text-center hidde" style=" padding: 10px; display:none">
+                    <div class="col-xs-12" style="background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); padding:0; margin: 0">
+                        <div class="col-xs-12" style="padding-top:10px; padding-bottom:10px; word-wrap: break-word;">@Html.DisplayFor(modelItem => item.Email)</div>
+
+                        <div class="col-xs-12 status" style=" padding-top:10px; padding-bottom:10px; font-family: TitilliumWeb-Regular; font-size: 20px">@Html.DisplayFor(modelItem => item.Status)</div>
+
+                    </div>
+                </div>
+                if (a % 3 == 0)
+                {
+                    <div class="clearfix"></div>
+                }
+
+                @*@Html.DisplayFor(modelItem => item)*@
+                @*@Html.DisplayFor(modelItem => item.Email)*@
+                @*@Html.DisplayFor(item.Email)*@
+
             }
 
-            @*@Html.DisplayFor(modelItem => item)*@
-            @*@Html.DisplayFor(modelItem => item.Email)*@
-            @*@Html.DisplayFor(item.Email)*@
+            <script>
 
-        }
+                $(".status").each(
+                    function (i) {
+                        if ($(this).text() === "Pending") {
+                            $(this).css("background-color", "#f0ad4e");
+                        }
+                        else if ($(this).text() === "Declined") {
+                            $(this).css("background-color", "#d9534f");
+                        }
+                        else if ($(this).text() === "Accepted") {
+                            $(this).css("background-color", "#5cb85c");
+                        }
+                    });
 
-        <script>
+                //$(function () {
+                $("#box").click(function () {
+                    $(function () {
+                        var hidden = $(".hidde").css("display");
+                        if (hidden === "none") {
+                            $("#toggle").html("-");
+                        }
+                        else {
+                            $("#toggle").html("+");
+                        }
+                    });
+                    $(".hidde").toggle("fast");
 
-            $(".status").each(
-                function (i) {
-                    if ($(this).text() === "Pending") {
-                        $(this).css("background-color", "#f0ad4e");
-                    }
-                    else if ($(this).text() === "Declined") {
-                        $(this).css("background-color", "#d9534f");
-                    }
-                    else if ($(this).text() === "Accepted") {
-                        $(this).css("background-color", "#5cb85c");
-                    }
-                });
+                    //   })
 
-            //$(function () {
-            $("#box").click(function () {
-                $(function () {
-                    var hidden = $(".hidde").css("display");
-                    if (hidden === "none") {
-                        $("#toggle").html("-");
-                    }
-                    else {
-                        $("#toggle").html("+");
-                    }
-                });
-                $(".hidde").toggle("fast");
-
-                //   })
-
-            })
+                })
 
 
 
-        </script>
-    </div>
-
-    @*@Html.ActionLink("Invite someone!", "Create", "Invitees", new { invitationId = Model.Id }, null)*@
-    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Create", "Invitees", new { invitationId = Model.Id })'">Invite someone!</button>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</div>
-    @section Scripts {
-        @Scripts.Render("~/bundles/mapbox")
+            </script>
+        </div>
     }
+    else
+    {
+        <div class="container">
+            <h4>No one is invited to this event</h4>
+        </div>
+    }
+
+
+
+            @*@Html.ActionLink("Invite someone!", "Create", "Invitees", new { invitationId = Model.Id }, null)*@
+
+
+            @if (DateTime.Compare(Model.Date, DateTime.Now) > 0)
+            {
+                <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Create", "Invitees", new { invitationId = Model.Id })'">Invite someone!</button>
+
+            }
+            <p>
+                @if (DateTime.Compare(Model.Date, DateTime.Now) > 0)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })<span> |</span>
+                }
+
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        </div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/mapbox")
+        }
+<script>
+                $(".button1").click(function (e) {
+                    var lng = $(".longitude").html();
+                    var lat = $(".latitude").html();
+                    map.flyTo({ center: [lng, lat] });
+                })
+</script>

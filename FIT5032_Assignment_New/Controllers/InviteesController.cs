@@ -62,8 +62,13 @@ namespace FIT5032_Assignment_New.Controllers
         public ActionResult Create(int invitationId)
         {
             //SelectList(db.Locations, "Id", "LocationName");
+            
+            Location invitation = db.Locations.Find(invitationId);
+            if (DateTime.Compare(invitation.Date, DateTime.Now) < 0)
+            {
+                return RedirectToAction("Details", "Locations", new { id = invitation.Id });
+            }
             var invitee = new Invitee();
-            var invitation = db.Locations.Find(invitationId);
             ViewBag.InvitationId = invitation.Id;
             return View();
         }
@@ -86,6 +91,7 @@ namespace FIT5032_Assignment_New.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Id,Email,Status,InvitationId")] Invitee invitee)
         {
+            
             String sender = GetUserName(db.Locations.Find(invitee.InvitationId).InviterId);
             invitee.Status = "Pending";
             var foo = db.Invitees.Where(v => v.Email.Equals(invitee.Email) && v.InvitationId == invitee.InvitationId);
@@ -119,7 +125,7 @@ namespace FIT5032_Assignment_New.Controllers
                     String toEmail = invitee.Email;
                     String subject = "You Recieved An Invitation on TINV!";
                     String contents = sender + " is inviting you to an exciting event. Check the link below!";
-                    String link = Url.Action("Details", "Invitees", new { id = invitee.Id }, "http");
+                    String link = Url.Action("Details", "Invitees", new { id = invitee.Id }, "https");
                     
                     EmailSender es = new EmailSender();
                     es.Send(toEmail, subject, contents, link);
