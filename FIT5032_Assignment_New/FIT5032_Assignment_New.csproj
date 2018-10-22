@@ -268,7 +268,7 @@
     <Content Include="App_Data\Posts_log.ldf">
       <DependentUpon>Posts.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker1.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

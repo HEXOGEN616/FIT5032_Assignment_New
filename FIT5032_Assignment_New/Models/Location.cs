@@ -36,7 +36,7 @@ namespace FIT5032_Assignment_New.Models
         //[Required]
         [Display(Name = "Event Date")]
         [DisplayFormat(DataFormatString = "{0:HH:mm:ss dd/MMM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
 
         public string InviterId { get; set; }
 

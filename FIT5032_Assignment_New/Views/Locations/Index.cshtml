@@ -64,7 +64,13 @@
                         @Html.Action("GetUserName", new { userId = item.InviterId })
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+
+                        @if (DateTime.Compare(item.Date, System.DateTime.Now) > 0)
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                            <span>|</span>
+                        }
+
                         @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                     </td>

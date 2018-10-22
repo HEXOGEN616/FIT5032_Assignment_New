@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FIT5032_Assignment_New.Models;
+using FIT5032_Assignment_New.Utils;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -137,11 +138,17 @@ namespace FIT5032_Assignment_New.Controllers
             {
                 return RedirectToAction("Index");
             }
+
+            if (DateTime.Compare(location.Date, DateTime.Now) < 0)
+            {
+                return RedirectToAction("Index");
+            }
+
             if (location == null)
             {
                 return HttpNotFound();
             }
-            return View();
+            return View(location);
         }
 
         // POST: Locations/Edit/5
@@ -178,6 +185,28 @@ namespace FIT5032_Assignment_New.Controllers
             {
                 db.Entry(location).State = EntityState.Modified;
                 db.SaveChanges();
+                string sender = GetUserName(location.InviterId);
+                string des = location.Description;
+                foreach(Invitee invitee in location.Invitees)
+                {
+                    
+                    if (invitee.Status.Equals("Accepted"))
+                    {
+                        try
+                        {
+                            String toEmail = invitee.Email;
+                            String subject = "An event's detail has changed!";
+                            String contents = sender + "has changed event " + des + "'s detail. Check the link below!";
+                            String link = Url.Action("Details", "Invitees", new { id = invitee.Id }, "http");
+
+                            EmailSender es = new EmailSender();
+                            es.Send(toEmail, subject, contents, link);
+                        }
+                        catch { }
+                    }
+                    
+                }
+                
                 return RedirectToAction("Index");
             }
             return View(location);

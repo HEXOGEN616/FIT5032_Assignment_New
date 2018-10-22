@@ -17,7 +17,7 @@
 
     <p id="box" style="cursor:pointer;"><span id="span1" style="color:red">Table View</span>/<span id="span2">Calendar View</span></p>
 
-    <table class="table hidde">
+    <table class="table hidde" style="margin-bottom: 10px; background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); padding: 10px;">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Location.LocationName)
@@ -50,7 +50,11 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.ActionLink("RSVP", "Edit", new { id = item.Id }) |
+                    @if (DateTime.Compare(item.Location.Date, DateTime.Now) > 0)
+                    {
+                        @Html.ActionLink("RSVP", "Edit", new { id = item.Id })
+                    <span>|</span>
+                    }
                     @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "link" }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
@@ -98,8 +102,9 @@
         events.push(event);
     });
     $("#calendar").fullCalendar({
+        themeSystem: 'bootstrap3',
         locale: 'au',
-        timeFormat:"DD/MM/YYYY",
+        timeFormat:"HH:mm:ss",
         events: events,
         //dayClick: function (date, allDay, jsEvent, view) {
         //    var d = new Date(date);
@@ -110,7 +115,11 @@
         //}
         eventClick: function (event, jsEvent, view) {
             $(location).attr('href', event.link);
-            $(location).css("cursor", "pointer");
+            //$(location).css("cursor", "pointer");
         }
     });
+
+    $(document).ready(function (e) {
+        $(".fc-content").css("cursor", "pointer");
+    })
 </script>
