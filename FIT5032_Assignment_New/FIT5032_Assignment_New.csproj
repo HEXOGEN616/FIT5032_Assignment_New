@@ -322,6 +322,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\PublishProfiles\FIT5032 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FIT5032 - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\FIT5032 - Web Deploy2.pubxml" />
     <None Include="Properties\PublishProfiles\Tinv-Kang - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Tinv-Kang - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
