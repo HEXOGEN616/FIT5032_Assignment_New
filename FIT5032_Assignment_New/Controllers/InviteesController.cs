@@ -125,7 +125,7 @@ namespace FIT5032_Assignment_New.Controllers
                     es.Send(toEmail, subject, contents, link);
                 }
                 catch { }
-                return RedirectToAction("Index", "Locations");
+                return RedirectToAction("Details", "Locations", new { id = invitee.InvitationId});
             }
 
             //ViewBag.InvitationId = new SelectList(db.Locations, "Id", "LocationName", invitee.InvitationId);
@@ -206,7 +206,7 @@ namespace FIT5032_Assignment_New.Controllers
             Invitee invitee = db.Invitees.Find(id);
             db.Invitees.Remove(invitee);
             db.SaveChanges();
-            return RedirectToAction("Index", "Locations");
+            return RedirectToAction("Index", "Invitees");
         }
 
         protected override void Dispose(bool disposing)

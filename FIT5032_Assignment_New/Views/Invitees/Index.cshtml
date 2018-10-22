@@ -14,10 +14,16 @@
     @*<p>
             @Html.ActionLink("Create New", "Create")
         </p>*@
-    <table class="table">
+
+    <p id="box" style="cursor:pointer;"><span id="span1" style="color:red">Table View</span>/<span id="span2">Calendar View</span></p>
+
+    <table class="table hidde">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Location.LocationName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location.Date)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -30,9 +36,12 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
+            <tr class="events">
+                <td class="title">
                     @Html.DisplayFor(modelItem => item.Location.LocationName)
+                </td>
+                <td class="start">
+                    @Html.DisplayFor(modelItem => item.Location.Date)
                 </td>
                 <td style="word-break: break-all; word-wrap: break-word;">
                     @Html.DisplayFor(modelItem => item.Email)
@@ -42,11 +51,66 @@
                 </td>
                 <td>
                     @Html.ActionLink("RSVP", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "link" }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
+
             </tr>
+
         }
 
     </table>
+
+
+    <div class="col-xs-12" id="calendar" style="display: none; margin-bottom: 10px; background-color:#fff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); padding: 10px;"></div>
 </div>
+<script>
+    $("#box").click(function () {
+        $(function () {
+            var hidden = $(".hidde").css("display");
+            if (hidden === "none") {
+                $("#span1").css("color", "red");
+                $("#span2").css("color", "black")
+            }
+            else {
+                $("#span1").css("color", "black");
+                $("#span2").css("color", "red")
+            }
+        });
+        $(".hidde").toggle("fast");
+        $("#calendar").toggle("fast");
+        //   })
+
+    })
+</script>
+@*<script src="~/Scripts/moment-with-locales.js"></script>*@
+<script>
+    var events = [];
+    $(".events").each(function () {
+        var title = $(".title", this).text().trim();
+        var start = $(".start", this).text().trim();
+        var link = $(".link", this).attr('href');
+        var event = {
+            "title": title,
+            "start": start,
+            "link": link
+        };
+        events.push(event);
+    });
+    $("#calendar").fullCalendar({
+        locale: 'au',
+        timeFormat:"DD/MM/YYYY",
+        events: events,
+        //dayClick: function (date, allDay, jsEvent, view) {
+        //    var d = new Date(date);
+        //    var m = moment(d).format("0:HH:mm:ss DD/MM/YYYY");
+        //    m = encodeURIComponent(m);
+        //    var uri = "/Events/Create?date=" + m;
+        //    $(location).attr('href', uri);
+        //}
+        eventClick: function (event, jsEvent, view) {
+            $(location).attr('href', event.link);
+            $(location).css("cursor", "pointer");
+        }
+    });
+</script>
